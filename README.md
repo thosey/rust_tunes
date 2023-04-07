@@ -34,13 +34,6 @@ Fields
 
 Usage
 
-To use the Rust Music Player, follow these steps:
-
-    Ensure you have Rust and the required dependencies installed. You'll need the following crates:
-        serde
-        serde_json
-        rodio
-
     Compile the Rust Music Player:
 
 sh
