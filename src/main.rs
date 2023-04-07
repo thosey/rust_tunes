@@ -44,22 +44,27 @@ fn calculate_frequency_of_note(pitch: &str, octave: u8) -> f32 {
     let semitones_from_base = (octave as i32 - base_octave as i32) * 12 + semitones_from_a;
     base_frequency * (2f32).powf(semitones_from_base as f32 / 12f32)
 }
-fn frequency_of_note(pitch: &str, octave: u8) -> f32 {
-    //Delegate to the non-momentoized function on the first call
-    //and memoize the result for subsequent calls
-    //
-
-    //Create a static mutable reference to a HashMap
-    //
-    //The static keyword means that the variable is only created once
-
-    let mut memoized_frequencies: HashMap<(String, u8), f32> = HashMap::new();
-    if memoized_frequencies.contains_key(&(pitch.to_string(), octave)) {
-        return memoized_frequencies[&(pitch.to_string(), octave)];
-    } else {
-        let frequency = calculate_frequency_of_note(pitch, octave);
-        memoized_frequencies.insert((pitch.to_string(), octave), frequency);
-        return frequency;
+struct FrequencyCalculator {
+    calculated_frequencies: HashMap<(String, u8), f32>,
+}
+impl FrequencyCalculator {
+    fn new() -> FrequencyCalculator {
+        FrequencyCalculator {
+            calculated_frequencies: HashMap::new(),
+        }
+    }
+    fn frequency_of_note(&mut self, pitch: &str, octave: u8) -> f32 {
+        if self
+            .calculated_frequencies
+            .contains_key(&(pitch.to_string(), octave))
+        {
+            return self.calculated_frequencies[&(pitch.to_string(), octave)];
+        } else {
+            let frequency = calculate_frequency_of_note(pitch, octave);
+            self.calculated_frequencies
+                .insert((pitch.to_string(), octave), frequency);
+            return frequency;
+        }
     }
 }
 fn main() {
@@ -67,7 +72,7 @@ fn main() {
     let arguments: Vec<String> = env::args().collect();
 
     let location = &arguments[1];
-
+    let mut frequency_calculator = FrequencyCalculator::new();
     // Open the JSON file and parse it into a Tune struct
     let file = File::open(location).unwrap();
     let reader = BufReader::new(file);
@@ -87,7 +92,7 @@ fn main() {
     // Play each note in the tune
     for note in tune.notes {
         // Compute the frequency of the note based on the pitch and octave
-        let frequency = frequency_of_note(&note.pitch, note.octave);
+        let frequency = frequency_calculator.frequency_of_note(&note.pitch, note.octave);
         //output the note to standard output
         //
         println!("Playing note: {:?}", note.pitch);
@@ -104,4 +109,3 @@ fn main() {
     sink.play();
     sink.sleep_until_end();
 }
-
