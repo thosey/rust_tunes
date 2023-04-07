@@ -1,0 +1,25 @@
+{
+  "title": "My Awesome Chip Tune",
+  "author": "John Doe",
+  "tempo": 120,
+  "instrument": "NES",
+  "notes": [
+    { "pitch": "C", "octave": 4, "duration": 0.25 },
+    { "pitch": "D", "octave": 4, "duration": 0.25 },
+    { "pitch": "E", "octave": 4, "duration": 0.25 },
+    { "pitch": "F", "octave": 4, "duration": 0.25 },
+    { "pitch": "G", "octave": 4, "duration": 0.25 },
+    { "pitch": "A", "octave": 4, "duration": 0.25 },
+    { "pitch": "B", "octave": 4, "duration": 0.25 },
+    { "pitch": "C", "octave": 5, "duration": 0.25 },
+    { "pitch": "C#", "octave": 5, "duration": 0.25 },
+    { "pitch": "D#", "octave": 5, "duration": 0.25 },
+    { "pitch": "C#", "octave": 5, "duration": 0.25 },
+    { "pitch": "D#", "octave": 5, "duration": 0.25 },
+    { "pitch": "F", "octave": 5, "duration": 0.25 },
+    { "pitch": "G#", "octave": 4, "duration": 0.25 },
+    { "pitch": "F", "octave": 5, "duration": 0.25 },
+    { "pitch": "G#", "octave": 4, "duration": 0.25 }
+  ]
+}
+
