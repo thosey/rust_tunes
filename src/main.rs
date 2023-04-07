@@ -1,10 +1,10 @@
+use rodio::source::{SineWave, Source};
+use rodio::{OutputStream, Sink};
+use std::collections::HashMap;
 use std::env;
 use std::fs::File;
 use std::io::BufReader;
 use std::time::Duration;
-
-use rodio::source::{SineWave, Source};
-use rodio::{OutputStream, Sink};
 
 #[derive(Debug, serde::Deserialize)]
 struct Note {
@@ -22,7 +22,7 @@ struct Tune {
     notes: Vec<Note>,
 }
 
-fn frequency_of_note(pitch: &str, octave: u8) -> f32 {
+fn calculate_frequency_of_note(pitch: &str, octave: u8) -> f32 {
     let base_frequency = 440.0; // A4
     let base_octave = 4;
     let semitones_from_a = match pitch {
@@ -44,6 +44,24 @@ fn frequency_of_note(pitch: &str, octave: u8) -> f32 {
     let semitones_from_base = (octave as i32 - base_octave as i32) * 12 + semitones_from_a;
     base_frequency * (2f32).powf(semitones_from_base as f32 / 12f32)
 }
+fn frequency_of_note(pitch: &str, octave: u8) -> f32 {
+    //Delegate to the non-momentoized function on the first call
+    //and memoize the result for subsequent calls
+    //
+
+    //Create a static mutable reference to a HashMap
+    //
+    //The static keyword means that the variable is only created once
+
+    let mut memoized_frequencies: HashMap<(String, u8), f32> = HashMap::new();
+    if memoized_frequencies.contains_key(&(pitch.to_string(), octave)) {
+        return memoized_frequencies[&(pitch.to_string(), octave)];
+    } else {
+        let frequency = calculate_frequency_of_note(pitch, octave);
+        memoized_frequencies.insert((pitch.to_string(), octave), frequency);
+        return frequency;
+    }
+}
 fn main() {
     // Read in first input argument as location
     let arguments: Vec<String> = env::args().collect();
@@ -55,6 +73,10 @@ fn main() {
     let reader = BufReader::new(file);
     let tune: Tune = serde_json::from_reader(reader).unwrap();
 
+    println!(
+        "Playing tune {:?} by {:?} for {:?}",
+        tune.title, tune.author, tune.instrument
+    );
     // Compute the duration of a quarter note in seconds based on the tempo
     let quarter_note_duration = 1000.0 * ((60.0 / f32::from(tune.tempo)) as f32);
 
