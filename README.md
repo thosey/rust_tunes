@@ -8,7 +8,7 @@ JSON Format
 
 The JSON file used as input for the Rust Music Player should follow this structure:
 
-`json
+```json
 
 {
   "title": "Song Title",
@@ -20,7 +20,7 @@ The JSON file used as input for the Rust Music Player should follow this structu
     ...
   ]
 }
-
+```
 Fields
 
     title: The title of the song (string).
