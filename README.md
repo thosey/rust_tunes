@@ -1,7 +1,6 @@
-# rust_tunes
+# Rust Tunes
 
-Rust Tunes
-Overview
+## Overview
 
 The Rust Tunes music player is a simple command-line application that reads and plays JSON-formatted music files. It parses the JSON input and plays the notes using a sine wave generator. This document provides an overview of the JSON format, as well as instructions on how to use the Rust Music Player.
 JSON Format
@@ -9,7 +8,6 @@ JSON Format
 The JSON file used as input for the Rust Music Player should follow this structure:
 
 ```json
-
 {
   "title": "Song Title",
   "author": "Author Name",
@@ -32,19 +30,18 @@ Fields
         octave: The octave of the note as an integer (e.g., 4).
         duration: The duration of the note, expressed as a multiple of a quarter note (e.g., 1 for a quarter note, 0.5 for an eighth note, 2 for a half note).
 
-Usage
+## Usage
 
     Compile the Rust Music Player:
 
-sh
-
+```sh
 cargo build --release
-
+```
     Run the Rust Music Player with the path to a JSON music file as the first argument:
 
-sh
-
+```sh
 cargo run --release path/to/music.json
+```
 
 The Rust Music Player will read the JSON file, parse the notes, and play the song using a sine wave generator.
 Limitations
@@ -53,7 +50,7 @@ Limitations
     The player does not support advanced music notation, dynamics, or multiple instruments. It's designed for simple monophonic playback.
     Complex rhythms, time signatures, and key signatures are not supported.
 
-Future Improvements
+## Future Improvements
 
     Support for additional instruments and sound generators
     Support for polyphonic playback (multiple voices or instruments)
