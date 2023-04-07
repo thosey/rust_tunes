@@ -1,0 +1,22 @@
+{
+    "title": "Test tune",
+    "author": "Tim Hosey",
+    "tempo": 30,
+    "instrument": "Synth",
+    "notes": [
+      { "pitch": "A", "octave": 4, "duration": 0.25 },
+      { "pitch": "C", "octave": 4, "duration": 0.25 },
+      { "pitch": "E", "octave": 4, "duration": 0.125 },
+      { "pitch": "E", "octave": 4, "duration": 0.125 },
+      { "pitch": "D", "octave": 4, "duration": 0.25 },
+      { "pitch": "B", "octave": 4, "duration": 0.25 },
+      { "pitch": "G", "octave": 3, "duration": 0.25 },
+      { "pitch": "A", "octave": 4, "duration": 0.25 },
+      { "pitch": "C", "octave": 4, "duration": 0.25 },
+      { "pitch": "E", "octave": 4, "duration": 0.125 },
+      { "pitch": "G", "octave": 4, "duration": 0.25 },
+      { "pitch": "F", "octave": 4, "duration": 0.125 },
+      { "pitch": "E", "octave": 4, "duration": 0.25 },
+      { "pitch": "A", "octave": 4, "duration": 0.25 }
+    ]
+}
