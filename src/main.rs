@@ -39,7 +39,6 @@ fn main() {
         "Playing tune {:?} by {:?} for {:?}",
         tune.title, tune.author, tune.instrument
     );
-    // Compute the duration of a quarter note in seconds based on the tempo
     let quarter_note_duration = 1000.0 * ((60.0 / f32::from(tune.tempo)) as f32);
 
     // Create a Rodio Sink for audio playback
@@ -48,12 +47,8 @@ fn main() {
 
     // Play each note in the tune
     for note in tune.notes {
-        // Compute the frequency of the note based on the pitch and octave
         let frequency = frequency_calculator.frequency_of_note(&note.pitch, note.octave);
-        //output the note to standard output
-        //
         println!("Playing note: {:?}", note.pitch);
-        // Compute the duration of the note in seconds
         let duration = (quarter_note_duration * note.duration) as u64;
         println!("For {:?} seconds", duration);
         let source = SineWave::new(frequency)
@@ -62,7 +57,6 @@ fn main() {
         sink.append(source);
     }
 
-    // Wait for the audio to finish playing before exiting
     sink.play();
     sink.sleep_until_end();
 }
