@@ -44,19 +44,20 @@ fn main() {
     // Create a Rodio Sink for audio playback
     let (_stream, stream_handle) = OutputStream::try_default().unwrap();
     let sink = Sink::try_new(&stream_handle).unwrap();
+    loop {
+        // Play each note in the tune
+        for note in &tune.notes {
+            let frequency = frequency_calculator.frequency_of_note(&note.pitch, note.octave);
+            println!("Playing note: {:?}", note.pitch);
+            let duration = (quarter_note_duration * note.duration) as u64;
+            println!("For {:?} seconds", duration);
+            let source = SineWave::new(frequency)
+                .take_duration(Duration::from_millis(duration))
+                .amplify(0.20);
+            sink.append(source);
+        }
 
-    // Play each note in the tune
-    for note in tune.notes {
-        let frequency = frequency_calculator.frequency_of_note(&note.pitch, note.octave);
-        println!("Playing note: {:?}", note.pitch);
-        let duration = (quarter_note_duration * note.duration) as u64;
-        println!("For {:?} seconds", duration);
-        let source = SineWave::new(frequency)
-            .take_duration(Duration::from_millis(duration))
-            .amplify(0.20);
-        sink.append(source);
+        sink.play();
+        sink.sleep_until_end();
     }
-
-    sink.play();
-    sink.sleep_until_end();
 }
