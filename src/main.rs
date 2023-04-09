@@ -51,9 +51,10 @@ fn main() {
             println!("Playing note: {:?}", note.pitch);
             let duration = (quarter_note_duration * note.duration) as u64;
             println!("For {:?} milliseconds", duration);
+            let amplify = 1.0-0.175*(note.octave as f32); 
             let source = SineWave::new(frequency)
                 .take_duration(Duration::from_millis(duration))
-                .amplify(0.20);
+                .amplify(amplify);
             sink.append(source);
         }
 
